@@ -1,8 +1,7 @@
 // app/[locale]/layout.tsx
-import '@/styles/index.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ContactSection} from '@/components/sections';
+import { ContactSection } from '@/components/sections';
 import type { Locale } from '@/lib/locales';
 import { getDictionary } from '@/lib/get-dictionary';
 import { locales } from '@/lib/locales';
@@ -32,9 +31,9 @@ async function RootLayout({
   params,
 }: {
   children: ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: { locale: Locale }; // Corrected type definition
 }) {
-  const { locale } = await params;
+  const { locale } = params; // No await here
   const commonDict = await getDictionary(locale, 'common');
   const contactDict = await getDictionary(locale, 'contact');
 
@@ -50,8 +49,7 @@ async function RootLayout({
           <Header dict={commonDict} />
         </div>
         {children}
-        {/* Conditionally render ContactSection to avoid duplication on /contact */}
-          <ContactSection dict={contactDict} />
+        <ContactSection dict={contactDict} />
         <script
           type="module"
           src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fbusysapp2597back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.7"

@@ -143,7 +143,7 @@ const ContactForm = ({ dict }: ContactFormProps) => {
                           <FormLabel >{dict.phone}</FormLabel>
                           <FormControl>
                             <Input
-                              placeholder={dict.your_phone}
+                              placeholder={dict.your_phone_number}
                               {...field}
                               className=" rounded-none  py-6 border-blue-900 text-white "
                             />

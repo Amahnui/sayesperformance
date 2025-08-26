@@ -207,6 +207,7 @@ export default function PackagesSection({ dict }: { dict: any }): JSX.Element {
       <style jsx global>{`
         .packages-swiper {
           padding-bottom: 40px;
+          
         }
 
         .packages-swiper .swiper-button-next,

@@ -1,16 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   productionBrowserSourceMaps: true,
-
-  // ❌ remove distDir unless really needed
-  // distDir: '.next',
-
+  distDir: process.env.DIST_DIR || '.next',
   typescript: {
-    ignoreBuildErrors: true, 
+    ignoreBuildErrors: false, // Recommended to be false
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+ 
 };
 
 export default nextConfig;

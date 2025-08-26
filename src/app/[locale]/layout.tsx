@@ -2,11 +2,10 @@
 import '@/styles/index.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ContactSection,} from '@/components/sections';
+import { ContactSection } from '@/components/sections';
 import type { Locale } from '@/lib/locales';
 import { getDictionary } from '@/lib/get-dictionary';
 import { locales } from '@/lib/locales';
-import { appWithTranslation } from 'next-i18next';
 import type { ReactNode } from 'react';
 import Header from '@/components/common/Header';
 
@@ -28,14 +27,14 @@ export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-async function RootLayout({
-  children,
-  params,
-}: {
+// Update the interface to match Next.js 15.5.0 expectations
+interface RootLayoutProps {
   children: ReactNode;
-  params: Promise<{ locale: Locale }>;
-}) {
-  const { locale } = await params; // Unwrap the Promise
+  params: { locale: Locale };
+}
+
+async function RootLayout({ children, params }: RootLayoutProps) {
+  const { locale } = params; // No need to await since params is not a Promise
   const commonDict = await getDictionary(locale, 'common');
   const contactDict = await getDictionary(locale, 'contact');
 

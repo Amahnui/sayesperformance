@@ -41,8 +41,8 @@ async function RootLayout({
           <link key={loc} rel="alternate" hrefLang={loc} href={`/${loc}`} />
         ))}
       </head>
-      <body className="font-inter">
-        <div className="w-full border-b border-white">
+      <body className="font-inter box-border">
+        <div className="w-full relative border-b border-white">
           <Header dict={commonDict} />
         </div>
         {children}

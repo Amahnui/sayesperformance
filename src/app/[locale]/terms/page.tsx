@@ -27,7 +27,7 @@ export default async function Terms({
 
   return (
     <>
-      <main id="content" className="site-main max-w-5xl post-1060 page type-page status-publish hentry px-4 py-10 mx-auto">
+      <main id="content" className="site-main max-w-5xl post-1060 page type-page status-publish hentry px-4 pt-28 py-10 mx-auto">
 
         <div className="page-content">
           <h1 className="wp-block-heading has-black-color has-text-color font-inter text-xl sm:text-3xl py-8">{dict.membership_terms}</h1>

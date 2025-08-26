@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ className = '', dict }) => {
 
   // Determine background based on locale
   const isTransparentBg = ['en', 'sv'].includes(currentLocale);
-  const bgClass = isTransparentBg ? 'bg-transparent' : 'bg-[#010381]/95';
+  const bgClass = isTransparentBg ? 'bg-[#ffffff4f]' : 'bg-[#010381]/95';
 
   // Determine text color based on className or background
   const isBlackText = className.includes('text-black') || isTransparentBg;
@@ -55,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ className = '', dict }) => {
   }
 
   return (
-    <header className={`w-full ${bgClass} ${textColor} shadow-lg transition-all duration-300 ${className}`}>
+    <header className={`w-full absolute z-20  ${bgClass} ${textColor} shadow-lg transition-all duration-300 ${className}`}>
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-5">
         {/* Mobile Header */}
         <div className="flex md:hidden justify-between items-center w-full">

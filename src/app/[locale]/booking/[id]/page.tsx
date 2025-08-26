@@ -4,6 +4,8 @@ import type { Locale } from '@/lib/locales';
 import BookingForm from '@/components/booking/BookingForm';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { ArrowBigLeft } from 'lucide-react';
+import Link from 'next/link';
 
 export async function generateStaticParams() {
   const paths = [];
@@ -85,10 +87,16 @@ export default async function BookingPage({
   }
 
   return (
-    <div className="min-h-screen bg-[#f7f7f7] flex flex-col items-center justify-start py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#f7f7f7] flex flex-col items-center justify-start pb-0 pt-32 md:pt-20 px-0 sm:px-6 lg:px-8">
       <div className="w-full  sm:p-12 lg:p-16">
+        {/* arrow back to home */}
+        <div>
+          <Link href={`/${locale}`}>
+          <ArrowBigLeft h-8 w-8 />
+          </Link>
+        </div>
         {/* Package Details Section */}
-        <div className="mb-12 mx-auto max-w-5xl bg-white p-8 flex items-center">
+        <div className="mb-0 mx-auto max-w-5xl bg-white p-4 md:p-8 flex items-center">
           <div>
             <h2 className="text-2xl font-bold text-gray-800 mb-2">{pkg.title}</h2>
             <p className="text-xl font-semibold text-blue-600 mb-4">{pkg.price}</p>
@@ -116,9 +124,7 @@ export default async function BookingPage({
             </ul>
           </div>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-bold text-center text-[#120088] mb-8 font-inter">
-          {dict.book_your_session}
-        </h1>
+       
         <BookingForm packageTitle={pkg.title} packageId={pkg.id} dict={dict} />
       </div>
     </div>

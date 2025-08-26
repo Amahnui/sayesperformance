@@ -105,7 +105,7 @@ export default function PackagesSection({ dict }: { dict: any }): JSX.Element {
                     <AnimatePresence>
                       {hoveredCard !== pkg.id && (
                         <motion.div
-                          className="absolute bottom-0 left-0 right-0 p-6 z-10 flex flex-col items-start"
+                          className="absolute  shadowxl shadow-[#000] bg-gradient-to-t from-[#120088]/90 via-[#050022]/80 to-transparent  bottom-0 left-0 right-0 p-6 pt-10 z-10 flex flex-col items-start"
                           initial={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 20 }}
                           transition={{ duration: 0.3 }}

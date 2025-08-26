@@ -27,7 +27,7 @@ export default async function ContactPage({
   const dict = await getDictionary(locale as Locale, 'contact-page');
 
   return (
-    <div className="min-h-screen bg-[#f7f7f7] flex flex-col items-center justify-start py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#f7f7f7] flex flex-col items-center justify-start md:pt-20 pt-24 py-8 px-2 md:px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-7xl">
         <ContactForm dict={dict} />
       </div>

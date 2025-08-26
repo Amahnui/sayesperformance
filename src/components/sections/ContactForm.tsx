@@ -70,8 +70,8 @@ const ContactForm = ({ dict }: ContactFormProps) => {
      
 
       {/* Contact Content */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
+      <section className="py-6 md:py-16">
+        <div className="container mx-auto md:px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Info */}
             <div className="space-y-8">
@@ -114,7 +114,7 @@ const ContactForm = ({ dict }: ContactFormProps) => {
 
             {/* Contact Form */}
             <Card className=" border-blue-900 backdrop-blur-sm rounded-none shadow-none">
-              <CardContent className="pt-6">
+              <CardContent className="pt-6 m-0 px-4 md:px-6">
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <FormField
@@ -211,14 +211,14 @@ const ContactForm = ({ dict }: ContactFormProps) => {
       </section>
 
       {/* Map Section */}
-      <section className="py-8">
-        <div className="container mx-auto px-4">
-          <div className="rounded-xl overflow-hidden border-2 border-blue-700/30">
+      <section className="py-8 pt-2 md:pt-8">
+        <div className="container mx-auto px-0">
+          <div className="rounded-xl h-[300px]  md:h-[400px] overflow-hidden border-2 border-blue-700/30">
             <iframe
               src="https://maps.google.com/maps?q=V%C3%A4stanforsgatan%2030%20A%2C%20214%2050%20Malm%C3%B6%2C%20Sweden&t=m&z=15&output=embed&iwloc=near"
               title="Sayes Performance Location"
               width="100%"
-              height="450"
+              height="100%"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"

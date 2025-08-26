@@ -26,7 +26,7 @@ export default async function PrivacyPolicy({
   const dict = await getDictionary(locale as Locale, 'privacy');
 
   return (
-    <main className="max-w-5xl mx-auto px-4 py-10">
+    <main className="max-w-5xl mx-auto pt-36 px-4 py-10">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">{dict.privacy_policy}</h1>
       </div>

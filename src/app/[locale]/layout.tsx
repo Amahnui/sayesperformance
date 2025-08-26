@@ -2,7 +2,7 @@
 import '@/styles/index.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ContactSection } from '@/components/sections';
+import { ContactSection} from '@/components/sections';
 import type { Locale } from '@/lib/locales';
 import { getDictionary } from '@/lib/get-dictionary';
 import { locales } from '@/lib/locales';
@@ -27,38 +27,38 @@ export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-// Use the new Next.js 15.5.0 pattern with separate component
-export default function RootLayout({
+async function RootLayout({
   children,
   params,
 }: {
-  children: React.ReactNode;
-  params: { locale: Locale };   // ✅ no Promise
+  children: ReactNode;
+  params: Promise<{ locale: Locale }>;
 }) {
-  return <LayoutWrapper children={children} params={params} />;
-}
-
-async function LayoutWrapper({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: { locale: Locale };   // ✅ no Promise
-}) {
-  const { locale } = params;
+  const { locale } = await params;
   const commonDict = await getDictionary(locale, 'common');
   const contactDict = await getDictionary(locale, 'contact');
 
   return (
-    <html lang={locale}>
-      <body>
-        <Header dict={commonDict} />
+    <html lang={locale} className={inter.variable}>
+      <head>
+        {locales.map((loc) => (
+          <link key={loc} rel="alternate" hrefLang={loc} href={`/${loc}`} />
+        ))}
+      </head>
+      <body className="font-inter">
+        <div className="w-full border-b border-white">
+          <Header dict={commonDict} />
+        </div>
         {children}
-        <ContactSection dict={contactDict} />
+        {/* Conditionally render ContactSection to avoid duplication on /contact */}
+          <ContactSection dict={contactDict} />
+        <script
+          type="module"
+          src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fbusysapp2597back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.7"
+        ></script>
       </body>
     </html>
   );
 }
 
-
-
+export default RootLayout;

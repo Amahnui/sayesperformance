@@ -1,4 +1,5 @@
 // app/[locale]/layout.tsx
+import '@/styles/index.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ContactSection } from '@/components/sections';
@@ -31,9 +32,9 @@ async function RootLayout({
   params,
 }: {
   children: ReactNode;
-  params: { locale: Locale }; // Corrected type definition
+  params: Promise<{ locale: Locale }>; // <-- Corrected type here
 }) {
-  const { locale } = params; // No await here
+  const { locale } = await params; // <-- Awaiting the params object
   const commonDict = await getDictionary(locale, 'common');
   const contactDict = await getDictionary(locale, 'contact');
 

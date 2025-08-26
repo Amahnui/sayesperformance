@@ -1,14 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   productionBrowserSourceMaps: true,
-  distDir: process.env.DIST_DIR || '.next',
 
-  // Disable TypeScript build errors
+  // ❌ remove distDir unless really needed
+  // distDir: '.next',
+
   typescript: {
-    ignoreBuildErrors: true, // set to true if you want to skip type checking during build
+    ignoreBuildErrors: true, 
   },
-
-  // Disable ESLint build errors
   eslint: {
     ignoreDuringBuilds: true,
   },

@@ -81,7 +81,7 @@ export default function PackagesSection({ dict }: { dict: any }): JSX.Element {
           <div className="hidden md:block w-full">
             <Swiper
               spaceBetween={30}
-              slidesPerView={3}
+              slidesPerView={4}
               navigation
               pagination={{ clickable: true }}
               modules={[Navigation, Pagination]}
@@ -207,7 +207,8 @@ export default function PackagesSection({ dict }: { dict: any }): JSX.Element {
       <style jsx global>{`
         .packages-swiper {
           padding-bottom: 40px;
-          
+
+
         }
 
         .packages-swiper .swiper-button-next,

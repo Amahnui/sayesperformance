@@ -27,15 +27,24 @@ export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-// Define the props interface with Promise for Next.js 15.5.0 compatibility
-interface RootLayoutProps {
+// Use the new Next.js 15.5.0 pattern with separate component
+export default function RootLayout({
+  children,
+  params,
+}: {
   children: ReactNode;
   params: Promise<{ locale: Locale }>;
+}) {
+  return <LayoutWrapper children={children} params={params} />;
 }
 
-// Export the layout function with proper typing for Next.js 15.5.0
-export default async function RootLayout({ children, params }: RootLayoutProps) {
-  // Await the params Promise as required by Next.js 15.5.0
+async function LayoutWrapper({
+  children,
+  params,
+}: {
+  children: ReactNode;
+  params: Promise<{ locale: Locale }>;
+}) {
   const { locale } = await params;
   const commonDict = await getDictionary(locale, 'common');
   const contactDict = await getDictionary(locale, 'contact');

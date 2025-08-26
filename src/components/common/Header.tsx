@@ -156,7 +156,7 @@ const Header: React.FC<HeaderProps> = ({ className = '', dict }) => {
 
         {/* Mobile Menu */}
         <div
-          className={`fixed top-0 right-0 w-full h-full ${bgClass} ${textColor} z-50 transform transition-transform duration-300 ease-in-out ${
+          className={`fixed top-0 right-0 w-full h-full bg-white ${textColor} z-50 transform transition-transform duration-300 ease-in-out ${
             menuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >

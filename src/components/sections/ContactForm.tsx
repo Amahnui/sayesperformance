@@ -127,7 +127,8 @@ const ContactForm = ({ dict }: ContactFormProps) => {
                             <Input
                               placeholder={dict.your_name}
                               {...field}
-                              className=" rounded-none  py-6 border-blue-900 text-white "
+                              className=" rounded-none  py-6 border-blue-900 text-black "
+                              value={field.value} // Fix: Explicitly pass value prop
                             />
                           </FormControl>
                           <FormMessage className="text-red-300" />
@@ -145,7 +146,8 @@ const ContactForm = ({ dict }: ContactFormProps) => {
                             <Input
                               placeholder={dict.your_phone_number}
                               {...field}
-                              className=" rounded-none  py-6 border-blue-900 text-white "
+                              className=" rounded-none  py-6 border-blue-900 text-black "
+                              value={field.value} // Fix: Explicitly pass value prop
                             />
                           </FormControl>
                           <FormMessage className="text-red-300" />
@@ -164,7 +166,8 @@ const ContactForm = ({ dict }: ContactFormProps) => {
                             
                               placeholder={dict.your_email}
                               {...field}
-                              className=" rounded-none border-blue-900 text-white py-6 "
+                              className=" rounded-none border-blue-900 text-black py-6 "
+                              value={field.value} // Fix: Explicitly pass value prop
                             />
                           </FormControl>
                           <FormMessage className="text-red-300" />
@@ -183,7 +186,8 @@ const ContactForm = ({ dict }: ContactFormProps) => {
                               placeholder={dict.your_message}
                               rows={4}
                               {...field}
-                              className="rounded-none  border-blue-900 text-white "
+                              className="rounded-none  border-blue-900 text-black "
+                              value={field.value} // Fix: Explicitly pass value prop
                             />
                           </FormControl>
                           <FormMessage className="text-red-300" />

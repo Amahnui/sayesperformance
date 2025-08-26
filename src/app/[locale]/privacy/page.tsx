@@ -2,9 +2,19 @@
 import { getDictionary } from '@/lib/get-dictionary';
 import type { Locale } from '@/lib/locales';
 import { locales } from '@/lib/locales';
+import type { Metadata } from 'next';
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const dict = await getDictionary(locale as Locale, 'privacy');
+  return {
+    title: dict.privacy_policy + ' | Sayes Performance' || 'Privacy Policy | Sayes Performance',
+    description: dict.intro_text || 'Privacy policy for Sayes Performance Center members and users.',
+  };
 }
 
 export default async function PrivacyPolicy({
@@ -20,73 +30,72 @@ export default async function PrivacyPolicy({
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">{dict.privacy_policy}</h1>
       </div>
-      
+
       <div className="prose prose-lg max-w-none">
-        <p><strong>Sayes Performance Privacy Policy</strong></p>
-        <p>Effective as of August 25, 2025.</p>
-        <p>As a member of one of Sayes Performance Center and to provide you with the services you receive from us, we need to process your personal data. This privacy policy contains information about our processing of your personal data and your rights in relation to our processing.</p>
-        
+        <p><strong>Sayes Performance {dict.privacy_policy}</strong></p>
+        <p>{dict.effective_date}</p>
+        <p>{dict.intro_text}</p>
+
         <ol className="list-decimal pl-6 my-4">
-          <li><strong> What personal data do we handle?</strong></li>
+          <li><strong>{dict.what_data_title}</strong></li>
         </ol>
-        
-        <p>We collect the following information from you:</p>
+
+        <p>{dict.data_collection_intro}</p>
         <ul className="list-disc pl-6 mb-4">
-          <li>Name</li>
-          <li>Address</li>
-          <li>Social security number</li>
-          <li>Telephone number</li>
-          <li>Email address</li>
-          <li>Photo</li>
-          <li>IP address (when using my pages)</li>
-          <li>Login details (when you use my pages)</li>
-          <li>Payment information (such as card number or bank account for payment via direct debit)</li>
-          <li>Information about your entry and exit at our facilities</li>
+          <li>{dict.data_items.name}</li>
+          <li>{dict.data_items.address}</li>
+          <li>{dict.data_items.social_security}</li>
+          <li>{dict.data_items.phone}</li>
+          <li>{dict.data_items.email}</li>
+          <li>{dict.data_items.photo}</li>
+          <li>{dict.data_items.ip_address}</li>
+          <li>{dict.data_items.login_details}</li>
+          <li>{dict.data_items.payment_info}</li>
+          <li>{dict.data_items.facility_access}</li>
         </ul>
-        
-        <p>In addition to the above, we may also collect other information that you provide from time to time for special services, such as, Sports massage treatments, Personal coaching sessions,Group sessions, interest registrations for various events, when you purchase from our website etc. These are either voluntary or necessary for the services for which they are required. You will be told what that information is used for when you provide it.</p>
-        
-        <p>At our fitness centers, camera surveillance at the entrance or inside the gym area takes place in accordance with current legislation, which means that you as a member may be recorded on surveillance footage.</p>
-        
-        <ol  className="list-decimal pl-6 my-4">
-          <li><strong> What is the data used for?</strong></li>
+
+        <p>{dict.additional_data_text}</p>
+
+        <p>{dict.surveillance_text}</p>
+
+        <ol className="list-decimal pl-6 my-4">
+          <li><strong>{dict.data_usage_title}</strong></li>
         </ol>
-        
-        <p>We only process your data for the purposes stated in this Privacy Policy. In most cases, we need the data to be able to provide the services you requested. In some cases we also want to provide other services and then we ask you for your consent for these services. This section contains information about what we use your personal data for and which legal basis we have for each case.</p>
-        
-        <p><strong>Management of your membership agreement</strong></p>
-        <p>We process your data in order to be able to fulfill your membership agreement and safeguard the rights and fulfill the obli...</p>
-        
-        {/* Corrected section with escaped characters */}
-        <p>Sayes Performance AB</p>
-        <p>Organization number: 559450-7054</p>
-        <p>Telephone number: 072 333 8787</p>
-        <p>Postal address: Dag Hammarskjölds Torg 2, 211 18 Malmö</p>
-        <p>Label the envelope &quot;Register extract&quot;. The register extract is only sent to your civil registration address.</p>
-        
-        <p><strong>Right to rectification</strong></p>
-        <p>If you notice that we have incorrect information about you, you have the right to request that we correct such information. You also have the right to supplement with such personal data that you consider to be missing and that are relevant with regard to the purpose we have for the processing of your personal data. In most cases, you can correct incorrect information yourself via My Pages. If this is not possible, you must be able to identify yourself with an ID document approved in Sweden when contacting us.</p>
-        
-        <p><strong>Right to erasure</strong></p>
-        <p>We save your customer data in accordance with what appears above. However, you always have the right to contact us and ask for your personal data to be deleted. We will then delete them to the extent that follows from the applicable law or regulation.</p>
-        
-        <p><strong>Right to limitation of treatment</strong></p>
-        <p>The right to restriction applies, among other things, if you believe that the personal data is incorrect and have requested correction. In such cases, you can also request that our processing of your personal data be limited while the accuracy of the personal data is investigated.</p>
-        
-        <p><strong>Right to object</strong></p>
-        <p>You have the right to object to the processing of your personal data that we do based on balancing of interests. In that case, you need to specify which treatment you object to. In the event of such an objection, we may only continue processing if we can demonstrate that there are compelling, justifiable reasons why the personal data must be processed that outweigh your interests.</p>
-        
-        <p><strong>Complaint</strong></p>
-        <p>If you believe that we are processing your personal data in violation of applicable data protection regulations, you should report this to us as soon as possible. Our contact details appear below.You also always have the right to contact the Swedish Privacy Protection Authority (IMY) if you have any comments about our processing of your personal data.</p>
-        
-        <p><strong>Contact details</strong></p>
-        <p>If you have questions or comments, you are always welcome to contact us.</p>
-        
-        <p><strong>Personal data controller: Svenska N&apos;ergy AB</strong></p>
-        <p><strong>Swedish N&apos;ergy AB (org. no. 556591-8868)</strong></p>
-        <p><strong>Box 605</strong></p>
-        <p><strong>442 40 Kungälv</strong></p>
-        <p><strong>Phone: 010-8885698</strong></p>
+
+        <p>{dict.data_usage_intro}</p>
+
+        <p><strong>{dict.membership_management_title}</strong></p>
+        <p>{dict.membership_management_text}</p>
+
+        <p>{dict.company_info.name}</p>
+        <p>{dict.company_info.org_number}</p>
+        <p>{dict.company_info.phone}</p>
+        <p>{dict.company_info.address}</p>
+        <p>{dict.company_info.register_extract}</p>
+
+        <p><strong>{dict.rights.rectification_title}</strong></p>
+        <p>{dict.rights.rectification_text}</p>
+
+        <p><strong>{dict.rights.erasure_title}</strong></p>
+        <p>{dict.rights.erasure_text}</p>
+
+        <p><strong>{dict.rights.limitation_title}</strong></p>
+        <p>{dict.rights.limitation_text}</p>
+
+        <p><strong>{dict.rights.object_title}</strong></p>
+        <p>{dict.rights.object_text}</p>
+
+        <p><strong>{dict.complaint_title}</strong></p>
+        <p>{dict.complaint_text}</p>
+
+        <p><strong>{dict.contact_title}</strong></p>
+        <p>{dict.contact_intro}</p>
+
+        <p><strong>{dict.contact_info.controller}</strong></p>
+        <p><strong>{dict.contact_info.company}</strong></p>
+        <p><strong>{dict.contact_info.box}</strong></p>
+        <p><strong>{dict.contact_info.postal}</strong></p>
+        <p><strong>{dict.contact_info.phone}</strong></p>
       </div>
     </main>
   );

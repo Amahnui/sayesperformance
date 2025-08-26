@@ -44,12 +44,12 @@ const Header: React.FC<HeaderProps> = ({ className = '', dict }) => {
   function LanguageSwitcher() {
     return (
       <div className="flex space-x-4">
-        <a href="/en">
+        <Link href="/en">
           <Image src="/images/british.png" alt="English" width={24} height={24} />
-        </a>
-        <a href="/sv">
+        </Link>
+        <Link href="/sv">
           <Image src="/images/swidish.png" alt="Swedish" width={24} height={24} />
-        </a>
+        </Link>
       </div>
     );
   }

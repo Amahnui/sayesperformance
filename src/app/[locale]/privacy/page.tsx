@@ -1,4 +1,4 @@
-// app/[locale]/privacy/page.tsx
+// src/app/[locale]/privacy/page.tsx
 import { getDictionary } from '@/lib/get-dictionary';
 import type { Locale } from '@/lib/locales';
 import { locales } from '@/lib/locales';
@@ -57,13 +57,12 @@ export default async function PrivacyPolicy({
         <p><strong>Management of your membership agreement</strong></p>
         <p>We process your data in order to be able to fulfill your membership agreement and safeguard the rights and fulfill the obli...</p>
         
-        {/* Add the rest of the truncated content here */}
-        
+        {/* Corrected section with escaped characters */}
         <p>Sayes Performance AB</p>
         <p>Organization number: 559450-7054</p>
         <p>Telephone number: 072 333 8787</p>
         <p>Postal address: Dag Hammarskjölds Torg 2, 211 18 Malmö</p>
-        <p>Label the envelope "Register extract". The register extract is only sent to your civil registration address.</p>
+        <p>Label the envelope &quot;Register extract&quot;. The register extract is only sent to your civil registration address.</p>
         
         <p><strong>Right to rectification</strong></p>
         <p>If you notice that we have incorrect information about you, you have the right to request that we correct such information. You also have the right to supplement with such personal data that you consider to be missing and that are relevant with regard to the purpose we have for the processing of your personal data. In most cases, you can correct incorrect information yourself via My Pages. If this is not possible, you must be able to identify yourself with an ID document approved in Sweden when contacting us.</p>
@@ -83,8 +82,8 @@ export default async function PrivacyPolicy({
         <p><strong>Contact details</strong></p>
         <p>If you have questions or comments, you are always welcome to contact us.</p>
         
-        <p><strong>Personal data controller: Svenska N'ergy AB</strong></p>
-        <p><strong>Swedish N'ergy AB (org. no. 556591-8868)</strong></p>
+        <p><strong>Personal data controller: Svenska N&apos;ergy AB</strong></p>
+        <p><strong>Swedish N&apos;ergy AB (org. no. 556591-8868)</strong></p>
         <p><strong>Box 605</strong></p>
         <p><strong>442 40 Kungälv</strong></p>
         <p><strong>Phone: 010-8885698</strong></p>

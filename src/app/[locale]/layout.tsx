@@ -32,8 +32,8 @@ export default function RootLayout({
   children,
   params,
 }: {
-  children: ReactNode;
-  params: { locale: Locale };   // ✅ not a Promise
+  children: React.ReactNode;
+  params: { locale: Locale };   // ✅ no Promise
 }) {
   return <LayoutWrapper children={children} params={params} />;
 }
@@ -42,33 +42,23 @@ async function LayoutWrapper({
   children,
   params,
 }: {
-  children: ReactNode;
-  params: { locale: Locale };   // ✅ not a Promise
+  children: React.ReactNode;
+  params: { locale: Locale };   // ✅ no Promise
 }) {
-  const { locale } = params; // ✅ already sync
+  const { locale } = params;
   const commonDict = await getDictionary(locale, 'common');
   const contactDict = await getDictionary(locale, 'contact');
 
   return (
-    <html lang={locale} className={inter.variable}>
-      <head>
-        {locales.map((loc) => (
-          <link key={loc} rel="alternate" hrefLang={loc} href={`/${loc}`} />
-        ))}
-      </head>
-      <body className="font-inter">
-        <div className="w-full border-b border-white">
-          <Header dict={commonDict} />
-        </div>
+    <html lang={locale}>
+      <body>
+        <Header dict={commonDict} />
         {children}
         <ContactSection dict={contactDict} />
-        <script
-          type="module"
-          src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fbusysapp2597back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.7"
-        ></script>
       </body>
     </html>
   );
 }
+
 
 

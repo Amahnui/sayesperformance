@@ -9,9 +9,9 @@ export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  const dict = await getDictionary(locale, 'contact');
+  const dict = await getDictionary(locale as Locale, 'contact');
   return {
     title: dict.title || 'Contact Us | Sayes Performance',
     description: dict.get_in_touch_description || 'Get in touch with Sayes Performance for coaching and training inquiries.',
@@ -21,10 +21,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 export default async function ContactPage({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const dict = await getDictionary(locale, 'contact');
+  const dict = await getDictionary(locale as Locale, 'contact');
 
   return (
     <div className="min-h-screen bg-[#f7f7f7] flex flex-col items-center justify-start py-8 px-4 sm:px-6 lg:px-8">

@@ -34,10 +34,10 @@ export async function generateStaticParams() {
 export default async function BookingPage({
   params,
 }: {
-  params: Promise<{ locale: Locale; id: string }>;
+  params: Promise<{ locale: string; id: string }>;
 }) {
   const { locale, id } = await params; // Unwrap the Promise
-  const dict = await getDictionary(locale, 'booking-form');
+  const dict = await getDictionary(locale as Locale, 'booking-form');
 
   // Load package data from locale-specific JSON file
   let packages = [];

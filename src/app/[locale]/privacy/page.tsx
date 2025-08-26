@@ -10,10 +10,10 @@ export async function generateStaticParams() {
 export default async function PrivacyPolicy({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const dict = await getDictionary(locale, 'privacy');
+  const dict = await getDictionary(locale as Locale, 'privacy');
 
   return (
     <main className="max-w-5xl mx-auto px-4 py-10">

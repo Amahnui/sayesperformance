@@ -10,10 +10,10 @@ export async function generateStaticParams() {
 export default async function Terms({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const dict = await getDictionary(locale, 'terms');
+  const dict = await getDictionary(locale as Locale, 'terms');
 
   return (
     <>

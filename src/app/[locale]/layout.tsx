@@ -33,7 +33,7 @@ export default function RootLayout({
   params,
 }: {
   children: ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: { locale: Locale };   // ✅ not a Promise
 }) {
   return <LayoutWrapper children={children} params={params} />;
 }
@@ -43,9 +43,9 @@ async function LayoutWrapper({
   params,
 }: {
   children: ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: { locale: Locale };   // ✅ not a Promise
 }) {
-  const { locale } = await params;
+  const { locale } = params; // ✅ already sync
   const commonDict = await getDictionary(locale, 'common');
   const contactDict = await getDictionary(locale, 'contact');
 
@@ -70,3 +70,5 @@ async function LayoutWrapper({
     </html>
   );
 }
+
+

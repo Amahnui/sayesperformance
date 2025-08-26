@@ -32,9 +32,9 @@ async function RootLayout({
   params,
 }: {
   children: ReactNode;
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 }) {
-  const { locale } = params; // <-- Awaiting the params object
+  const { locale } = await params; // <-- Awaiting the params object
   const commonDict = await getDictionary(locale, 'common');
   const contactDict = await getDictionary(locale, 'contact');
 

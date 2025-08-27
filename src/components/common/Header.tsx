@@ -4,6 +4,8 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { handleScroll } from '@/lib/smoothScoll';
+import Button from '../ui/Button';
 
 interface HeaderProps {
   className?: string;
@@ -61,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({ className = '', dict }) => {
         <div className="flex md:hidden justify-between items-center w-full">
           {/* Logo */}
           <div className="w-[140px] h-[60px] grid place-items-center">
-            <Link href="/">
+            <Link href={`/${currentLang.code}`}>
               <Image
                 src="/sayeslogo.png"
                 alt="Logo"
@@ -107,12 +109,14 @@ const Header: React.FC<HeaderProps> = ({ className = '', dict }) => {
             >
               {dict.contact_us}
             </Link>
-            <Link
-              href="#offers"
+            <button
+              onClick={(e) => handleScroll("offer")}
               className={`text-lg font-medium ${textColor} ${hoverColor} transition-colors duration-200 tracking-wide uppercase`}
             >
-              {dict.offers}
-            </Link>
+              <Link href={`#offer`}>
+                {dict.offers}
+              </Link>
+            </button>
           </div>
 
           {/* Language Dropdown */}
@@ -156,9 +160,8 @@ const Header: React.FC<HeaderProps> = ({ className = '', dict }) => {
 
         {/* Mobile Menu */}
         <div
-          className={`fixed top-0 right-0 w-full h-full bg-white ${textColor} z-50 transform transition-transform duration-300 ease-in-out ${
-            menuOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
+          className={`fixed top-0 right-0 w-full h-full bg-white ${textColor} z-50 transform transition-transform duration-300 ease-in-out ${menuOpen ? 'translate-x-0' : 'translate-x-full'
+            }`}
         >
           <div className="flex flex-col h-full p-6">
             {/* Close Button */}

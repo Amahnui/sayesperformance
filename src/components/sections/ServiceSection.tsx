@@ -55,7 +55,7 @@ const ServiceModal = ({ service, onClose }: { service: any; onClose: () => void 
   if (!service) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm p-4" id='offer'>
       <div className="bg-[#1a1a2e] text-white p-8 md:p-12 rounded-xl border border-gray-700 max-w-lg md:max-w-2xl w-full relative">
         <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
           <X className="w-8 h-8" />

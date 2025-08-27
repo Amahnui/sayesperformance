@@ -1,6 +1,8 @@
 // components/sections/HeroSection.tsx (remove 'use client', static)
+'use client'
 import React from 'react';
 import Link from 'next/link';
+import { handleScroll } from '@/lib/smoothScoll';
 
 export default function HeroSection({ dict }: { dict: any }): JSX.Element {
   return (
@@ -24,10 +26,10 @@ export default function HeroSection({ dict }: { dict: any }): JSX.Element {
       {/* Gradient Overlay */}
       <div
         className="absolute inset-0 z-0 bg-[#0c052c41]"
-        // style={{
-        //   background:
-        //     'linear-gradient(177deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.3) 50%, rgba(153,153,153,0.4) 100%)',
-        // }}
+      // style={{
+      //   background:
+      //     'linear-gradient(177deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.3) 50%, rgba(153,153,153,0.4) 100%)',
+      // }}
       />
       <div className="relative z-10 w-full">
         <div className="relative z-10 w-full">
@@ -41,40 +43,47 @@ export default function HeroSection({ dict }: { dict: any }): JSX.Element {
                   </h1>
                   <p className='text-center font-semibold text-white text-2xl font-inter'>{dict.hero_subtitle}</p>
                 </div>
-                <div className="m-5 flex flex-col sm:flex-row gap-4 sm:gap-5 items-center sm:items-start">
-                <Link href={'#packages'}>
+                <div className="m-5 flex flex-col  sm:flex-row gap-4 sm:gap-5 items-center sm:items-start">
                   <button
+                    onClick={(e) => handleScroll("packages")}
                     type="button"
-                    className="font-inter flex items-center justify-center ant-btn css-16dneet ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-lg bg-yellow-300 text-black font-medium px-6 sm:px-8 py-3 h-12 border-none shadow-lg hover:bg-yellow-300 hover:scale-105 transition-all duration-200 w-full sm:w-auto"
+                    className="font-inter flex items-center justify-center flex-nowrap ant-btn css-16dneet ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-lg bg-yellow-300 text-black font-medium px-6 sm:px-8 py-3 h-12 border-none shadow-lg hover:bg-yellow-300 hover:scale-105 transition-all duration-200 w-full sm:w-auto"
                   >
-                    <span>{dict.see_packages}</span>
-                    <span
-                      role="img"
-                      aria-label="arrow-right"
-                      className="anticon anticon-arrow-right ml-2"
+                    <Link
+                      href={'#packages'}
+                      className='flex items-center justify-center'
                     >
-                      <svg
-                        viewBox="64 64 896 896"
-                        focusable="false"
-                        data-icon="arrow-right"
-                        width="1em"
-                        height="1em"
-                        fill="currentColor"
-                        aria-hidden="true"
+                      <span>{dict.see_packages}</span>
+                      <span
+                        role="img"
+                        aria-label="arrow-right"
+                        className="anticon anticon-arrow-right ml-2"
                       >
-                        <path d="M869 487.8L491.2 159.9c-2.9-2.5-6.6-3.9-10.5-3.9h-88.5c-7.4 0-10.8 9.2-5.2 14l350.2 304H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h585.1L386.9 854c-5.6 4.9-2.2 14 5.2 14h91.5c1.9 0 3.8-.7 5.2-2L869 536.2a32.07 32.07 0 000-48.4z" />
-                      </svg>
-                    </span>
+                        <svg
+                          viewBox="64 64 896 896"
+                          focusable="false"
+                          data-icon="arrow-right"
+                          width="1em"
+                          height="1em"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path d="M869 487.8L491.2 159.9c-2.9-2.5-6.6-3.9-10.5-3.9h-88.5c-7.4 0-10.8 9.2-5.2 14l350.2 304H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h585.1L386.9 854c-5.6 4.9-2.2 14 5.2 14h91.5c1.9 0 3.8-.7 5.2-2L869 536.2a32.07 32.07 0 000-48.4z" />
+                        </svg>
+                      </span>
+                    </Link>
                   </button>
-                </Link>
-                <Link href={'#offer'}>
                   <button
+                    onClick={(e) => handleScroll("offer")}
                     type="button"
                     className="font-inter ant-btn css-16dneet ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-btn-lg font-medium px-6 sm:px-8 py-3 h-12 border-2 shadow-lg hover:scale-105 transition-all duration-200 w-full sm:w-auto bg-transparent text-yellow-300 border-yellow-300 hover:bg-yellow-300 hover:text-black"
                   >
-                    <span>{dict.get_more_info}</span>
+                    <Link
+                      href={'#offer'}
+                    >
+                      <span>{dict.get_more_info}</span>
+                    </Link>
                   </button>
-                </Link>
                 </div>
 
               </div>

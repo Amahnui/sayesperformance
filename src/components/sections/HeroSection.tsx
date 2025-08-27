@@ -78,7 +78,6 @@ export default function HeroSection({ dict }: { dict: any }): JSX.Element {
                     </Link>
                   </button>
                   <button
-                    onClick={(e) => handleScroll("offer")}
                     type="button"
                     className="font-inter ant-btn css-16dneet ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-btn-lg font-medium px-6 sm:px-8 py-3 h-12 border-2 shadow-lg hover:scale-105 transition-all duration-200 w-full sm:w-auto bg-transparent text-yellow-300 border-yellow-300 hover:bg-yellow-300 hover:text-black"
                   >

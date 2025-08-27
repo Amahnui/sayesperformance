@@ -1,4 +1,3 @@
-// components/sections/ContactForm.tsx
 'use client';
 import React, { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,6 +16,8 @@ interface ContactFormProps {
 
 const ContactForm = ({ dict }: ContactFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const formSchema = z.object({
     name: z.string().min(2, {
       message: dict.name_min_length,
@@ -31,8 +32,7 @@ const ContactForm = ({ dict }: ContactFormProps) => {
       message: dict.message_min_length,
     }),
   });
-  
-  // Define form
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,40 +42,50 @@ const ContactForm = ({ dict }: ContactFormProps) => {
       message: "",
     },
   });
-  
-  // Submit handler
-  function onSubmit(values: any) {
+
+  async function onSubmit(values: any) {
     setIsSubmitting(true);
-    console.log(values);
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      alert(dict.thank_you_message);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to submit form');
+      }
+
       form.reset();
-    }, 1500);
+      alert(dict.thank_you_message);
+    } catch (err: any) {
+      setError(err.message || dict.error_message);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b  ">
-      {/* Header Section */}
+    <main className="min-h-screen bg-gradient-to-b">
       <section className="py-16 relative overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
           <h1 className="text-4xl md:text-5xl font-bold text-center mb-4">{dict.contact_us}</h1>
-          <p className="text-center  max-w-2xl mx-auto">
+          <p className="text-center max-w-2xl mx-auto">
             {dict.get_in_touch_description}
           </p>
         </div>
       </section>
 
-     
-
-      {/* Contact Content */}
       <section className="py-6 md:py-16">
         <div className="container mx-auto md:px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Info */}
             <div className="space-y-8">
-              <Card className=" border-blue-900 backdrop-blur-sm rounded-none shadow-none">
+              <Card className="border-blue-900 backdrop-blur-sm rounded-none shadow-none">
                 <CardContent className="pt-6">
                   <div className="space-y-6">
                     <div className="flex items-start space-x-4">
@@ -84,7 +94,7 @@ const ContactForm = ({ dict }: ContactFormProps) => {
                       </div>
                       <div>
                         <h3 className="font-semibold text-lg">{dict.address}</h3>
-                        <p className="">Västanforsgatan 30 A, 214 50 Malmö, Sweden</p>
+                        <p>Västanforsgatan 30 A, 214 50 Malmö, Sweden</p>
                       </div>
                     </div>
 
@@ -94,7 +104,7 @@ const ContactForm = ({ dict }: ContactFormProps) => {
                       </div>
                       <div>
                         <h3 className="font-semibold text-lg">{dict.email}</h3>
-                        <p className="">info@sayesperformance.se</p>
+                        <p>info@sayesperformance.se</p>
                       </div>
                     </div>
 
@@ -104,7 +114,7 @@ const ContactForm = ({ dict }: ContactFormProps) => {
                       </div>
                       <div>
                         <h3 className="font-semibold text-lg">{dict.phone}</h3>
-                        <p className="">+46 72 333 87 87</p>
+                        <p>+46 72 333 87 87</p>
                       </div>
                     </div>
                   </div>
@@ -112,23 +122,24 @@ const ContactForm = ({ dict }: ContactFormProps) => {
               </Card>
             </div>
 
-            {/* Contact Form */}
-            <Card className=" border-blue-900 backdrop-blur-sm rounded-none shadow-none">
+            <Card className="border-blue-900 backdrop-blur-sm rounded-none shadow-none">
               <CardContent className="pt-6 m-0 px-4 md:px-6">
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    {error && <p className="text-red-300">{error}</p>}
+                    
                     <FormField
                       control={form.control}
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel >{dict.name}</FormLabel>
+                          <FormLabel>{dict.name}</FormLabel>
                           <FormControl>
                             <Input
                               placeholder={dict.your_name}
                               {...field}
-                              className=" rounded-none  py-6 border-blue-900 text-black "
-                              value={field.value} // Fix: Explicitly pass value prop
+                              className="rounded-none py-6 border-blue-900 text-black"
+                              value={field.value}
                             />
                           </FormControl>
                           <FormMessage className="text-red-300" />
@@ -141,13 +152,13 @@ const ContactForm = ({ dict }: ContactFormProps) => {
                       name="phone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel >{dict.phone}</FormLabel>
+                          <FormLabel>{dict.phone}</FormLabel>
                           <FormControl>
                             <Input
                               placeholder={dict.your_phone_number}
                               {...field}
-                              className=" rounded-none  py-6 border-blue-900 text-black "
-                              value={field.value} // Fix: Explicitly pass value prop
+                              className="rounded-none py-6 border-blue-900 text-black"
+                              value={field.value}
                             />
                           </FormControl>
                           <FormMessage className="text-red-300" />
@@ -160,14 +171,13 @@ const ContactForm = ({ dict }: ContactFormProps) => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel >{dict.email}</FormLabel>
+                          <FormLabel>{dict.email}</FormLabel>
                           <FormControl>
                             <Input
-                            
                               placeholder={dict.your_email}
                               {...field}
-                              className=" rounded-none border-blue-900 text-black py-6 "
-                              value={field.value} // Fix: Explicitly pass value prop
+                              className="rounded-none border-blue-900 text-black py-6"
+                              value={field.value}
                             />
                           </FormControl>
                           <FormMessage className="text-red-300" />
@@ -180,14 +190,14 @@ const ContactForm = ({ dict }: ContactFormProps) => {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel >{dict.message}</FormLabel>
+                          <FormLabel>{dict.message}</FormLabel>
                           <FormControl>
                             <Textarea
                               placeholder={dict.your_message}
                               rows={4}
                               {...field}
-                              className="rounded-none  border-blue-900 text-black "
-                              value={field.value} // Fix: Explicitly pass value prop
+                              className="rounded-none border-blue-900 text-black"
+                              value={field.value}
                             />
                           </FormControl>
                           <FormMessage className="text-red-300" />
@@ -210,10 +220,9 @@ const ContactForm = ({ dict }: ContactFormProps) => {
         </div>
       </section>
 
-      {/* Map Section */}
       <section className="py-8 pt-2 md:pt-8">
         <div className="container mx-auto px-0">
-          <div className="rounded-xl h-[300px]  md:h-[400px] overflow-hidden border-2 border-blue-700/30">
+          <div className="rounded-xl h-[300px] md:h-[400px] overflow-hidden border-2 border-blue-700/30">
             <iframe
               src="https://maps.google.com/maps?q=V%C3%A4stanforsgatan%2030%20A%2C%20214%2050%20Malm%C3%B6%2C%20Sweden&t=m&z=15&output=embed&iwloc=near"
               title="Sayes Performance Location"

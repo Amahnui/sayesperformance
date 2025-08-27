@@ -3,24 +3,18 @@ import nodemailer from 'nodemailer';
 import { z } from 'zod';
 
 // Define schema for form validation
-const bookingSchema = z.object({
-  fullName: z.string().min(2, { message: 'Full name must be at least 2 characters' }),
-  dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, { message: 'Invalid date format' }),
-  email: z.string().email({ message: 'Invalid email address' }),
-  phoneNumber: z.string().min(6, { message: 'Phone number must be at least 6 characters' }),
-  sports: z.string().min(1, { message: 'Sports field is required' }),
-  sportsClub: z.string().optional(),
-  position: z.string().optional(),
-  trainingGoals: z.string().min(10, { message: 'Training goals must be at least 10 characters' }),
-  preferredTrainingDays: z.string().min(1, { message: 'Preferred training days are required' }),
-  additionalMessage: z.string().optional(),
-  packageId: z.string().min(1, { message: 'Package ID is required' }),
-  packageTitle: z.string().min(1, { message: 'Package title is required' }),
+const contactSchema = z.object({
+  name: z.string().min(2),
+  phone: z.string().min(6),
+  email: z.string().email(),
+  message: z.string().min(10),
 });
 
 // Configure Nodemailer transporter
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: process.env.SMTP_HOST || 'smtp.gmail.com',
+  port: parseInt(process.env.SMTP_PORT || '587'),
+  secure: process.env.SMTP_PORT === '465',
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -30,40 +24,27 @@ const transporter = nodemailer.createTransport({
 export async function POST(request: NextRequest) {
   try {
     // Validate environment variables
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    if (!process.env.SMTP_HOST || !process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
       throw new Error('Missing SMTP configuration. Please check environment variables.');
     }
 
     // Parse and validate request body
     const body = await request.json();
-    const {
-      fullName,
-      dateOfBirth,
-      email,
-      phoneNumber,
-      sports,
-      sportsClub,
-      position,
-      trainingGoals,
-      preferredTrainingDays,
-      additionalMessage,
-      packageId,
-      packageTitle,
-    } = bookingSchema.parse(body);
+    const { name, phone, email, message } = contactSchema.parse(body);
 
     // Send email
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_RECIPIENT || process.env.EMAIL_USER,
       replyTo: email,
-      subject: `New Booking Request: ${packageTitle} (ID: ${packageId})`,
+      subject: `New Contact Form Submission from ${name}`,
       html: `
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Booking Request – Sayes Performance</title>
+  <title>Contact Form Submission – Sayes Performance</title>
   <style>
     /* Reset styles for email client compatibility */
     * {
@@ -195,35 +176,6 @@ export async function POST(request: NextRequest) {
       color: #1f2937;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 20px;
-      margin-top: 12px;
-    }
-
-    .grid-item {
-      padding: 16px;
-      background: #f8f9fa;
-      border-radius: 8px;
-      border-left: 4px solid #1d4ed8;
-      transition: all 0.2s ease;
-    }
-
-    .grid-item:hover {
-      background: #e9ecef;
-      border-left-color: #f97316;
-    }
-
-    .grid-item .label {
-      margin-bottom: 4px;
-    }
-
-    .grid-item .value {
-      margin-bottom: 0;
-      font-size: 15px;
-    }
-
     .message-content {
       background-color: #eff6ff;
       padding: 20px;
@@ -310,11 +262,6 @@ export async function POST(request: NextRequest) {
         padding: 15px;
       }
 
-      .grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-      }
-
       .field {
         flex-direction: column;
         align-items: flex-start;
@@ -334,95 +281,38 @@ export async function POST(request: NextRequest) {
       <p>Unleash Your Athletic Potential</p>
     </div>
     <div class="banner">
-      New Booking Request <span class="status-badge">Pending</span>
+      New Contact Form Submission <span class="status-badge">Pending</span>
     </div>
     <div class="content">
       <div class="section">
-        <h2>📦 Package Details</h2>
-        <div class="grid">
-          <div class="grid-item">
-            <div class="label">Package Title</div>
-            <div class="value">${packageTitle}</div>
-          </div>
-          <div class="grid-item">
-            <div class="label">Package ID</div>
-            <div class="value">${packageId}</div>
-          </div>
-        </div>
-      </div>
-      <div class="section">
-        <h2>👤 Athlete Information</h2>
-        <div class="grid">
-          <div class="grid-item">
-            <span class="field-icon">👤</span>
-            <div>
-              <div class="label">Full Name</div>
-              <div class="value">${fullName}</div>
-            </div>
-          </div>
-          <div class="grid-item">
-            <span class="field-icon">🎂</span>
-            <div>
-              <div class="label">Date of Birth</div>
-              <div class="value">${dateOfBirth}</div>
-            </div>
-          </div>
-          <div class="grid-item">
-            <span class="field-icon">✉️</span>
-            <div>
-              <div class="label">Email Address</div>
-              <div class="value">${email}</div>
-            </div>
-          </div>
-          <div class="grid-item">
-            <span class="field-icon">📞</span>
-            <div>
-              <div class="label">Phone Number</div>
-              <div class="value">${phoneNumber}</div>
-            </div>
-          </div>
-          <div class="grid-item">
-            <span class="field-icon">🏀</span>
-            <div>
-              <div class="label">Primary Sports</div>
-              <div class="value">${sports}</div>
-            </div>
-          </div>
-          <div class="grid-item">
-            <span class="field-icon">🏟️</span>
-            <div>
-              <div class="label">Sports Club</div>
-              <div class="value">${sportsClub || 'Not provided'}</div>
-            </div>
-          </div>
-          <div class="grid-item">
-            <span class="field-icon">🎯</span>
-            <div>
-              <div class="label">Position</div>
-              <div class="value">${position || 'Not provided'}</div>
-            </div>
-          </div>
-          <div class="grid-item">
-            <span class="field-icon">📅</span>
-            <div>
-              <div class="label">Preferred Training Days</div>
-              <div class="value">${preferredTrainingDays}</div>
-            </div>
-          </div>
-        </div>
-        <div class="field" style="margin-top: 20px;">
-          <span class="field-icon">💪</span>
+        <h2>Contact Information</h2>
+        <div class="field">
+          <span class="field-icon">👤</span>
           <div>
-            <div class="label">Training Goals</div>
-            <div class="value">${trainingGoals}</div>
+            <div class="label">Full Name</div>
+            <div class="value">${name}</div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="field-icon">✉️</span>
+          <div>
+            <div class="label">Email Address</div>
+            <div class="value">${email}</div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="field-icon">📞</span>
+          <div>
+            <div class="label">Phone Number</div>
+            <div class="value">${phone}</div>
           </div>
         </div>
       </div>
       <div class="section">
-        <h2>💬 Additional Message</h2>
-        <div class="message-content">${additionalMessage || 'No additional message provided'}</div>
+        <h2>Message</h2>
+        <div class="message-content">${message}</div>
       </div>
-      <a href="mailto:${email}?subject=Re:%20Booking%20Request%20-%20${packageTitle}" class="cta-button">Reply to This Booking</a>
+      <a href="mailto:${email}?subject=Re:%20Contact%20Form%20Submission" class="cta-button">Reply to This Inquiry</a>
     </div>
     <div class="footer">
       <strong>Sayes Performance</strong><br>
@@ -442,11 +332,11 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(
-      { message: 'Booking submitted successfully!' },
+      { message: 'Email sent successfully' },
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error submitting booking:', error);
+    console.error('Error sending email:', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(

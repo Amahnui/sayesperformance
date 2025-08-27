@@ -11,7 +11,7 @@ export async function generateStaticParams() {
   const paths = [];
   const locales = ['en', 'sv'];
   let packages = [];
-  
+
   // Load packages from a default locale (e.g., 'en') to generate paths
   try {
     const filePath = path.join(process.cwd(), 'public', 'locales', 'en', 'packages.json');
@@ -90,11 +90,19 @@ export default async function BookingPage({
     <div className="min-h-screen bg-[#f7f7f7] flex flex-col items-center justify-start pb-0 pt-32 md:pt-20 px-0 sm:px-6 lg:px-8">
       <div className="w-full  sm:p-12 lg:p-16">
         {/* arrow back to home */}
-        <div>
-          <Link href={`/${locale}`}>
-          <ArrowBigLeft h-8 w-8 />
+        <div className="p-4">
+          <Link
+            href={`/${locale}`}
+            className="inline-flex items-center gap-2 rounded-2xl bg-gray-100 px-4 py-2 
+                   text-gray-700 shadow-sm transition-all duration-200
+                   hover:bg-gray-200 hover:text-gray-900 hover:scale-105
+                   focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          >
+            <ArrowBigLeft className="h-6 w-6" />
+            <span className="font-medium">Back</span>
           </Link>
         </div>
+
         {/* Package Details Section */}
         <div className="mb-0 mx-auto max-w-5xl bg-white p-4 md:p-8 flex items-center">
           <div>
@@ -124,7 +132,7 @@ export default async function BookingPage({
             </ul>
           </div>
         </div>
-       
+
         <BookingForm packageTitle={pkg.title} packageId={pkg.id} dict={dict} />
       </div>
     </div>

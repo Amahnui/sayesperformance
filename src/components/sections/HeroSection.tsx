@@ -3,8 +3,12 @@
 import React from 'react';
 import Link from 'next/link';
 import { handleScroll } from '@/lib/smoothScoll';
+import { usePathname } from 'next/navigation';
 
 export default function HeroSection({ dict }: { dict: any }): JSX.Element {
+  const pathname = usePathname();
+  const currentLocale = pathname.split('/')[1] || 'en';
+
   return (
     <section
       className="w-full relative min-h-screen"
@@ -79,9 +83,9 @@ export default function HeroSection({ dict }: { dict: any }): JSX.Element {
                     className="font-inter ant-btn css-16dneet ant-btn-default ant-btn-color-default ant-btn-variant-outlined ant-btn-lg font-medium px-6 sm:px-8 py-3 h-12 border-2 shadow-lg hover:scale-105 transition-all duration-200 w-full sm:w-auto bg-transparent text-yellow-300 border-yellow-300 hover:bg-yellow-300 hover:text-black"
                   >
                     <Link
-                      href={'#offer'}
+                      href={`/contact${currentLocale}`}
                     >
-                      <span>{dict.get_more_info}</span>
+                      <span>{dict.contact_us}</span>
                     </Link>
                   </button>
                 </div>

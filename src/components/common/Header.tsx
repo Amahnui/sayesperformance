@@ -184,7 +184,7 @@ const Header: React.FC<HeaderProps> = ({ className = '', dict }) => {
                 {dict.contact_us}
               </Link>
               <Link
-                href="/offers"
+                href="#offers"
                 className={`text-xl font-medium ${hoverColor} transition-colors duration-200 tracking-wide uppercase`}
                 onClick={() => setMenuOpen(false)}
               >

@@ -13,7 +13,7 @@ export default function WhyChooseSection({ dict }: { dict: any }): JSX.Element {
             <div className="absolute inset-0 rounded-[5px] hidden lg:block top-[12px]" />
             <img
               src="https://sayesperformance.se/assets/banner-JN9Rbn98.gif"
-              alt="Sayes Performance Training"
+              alt="Next Generation Athlete Training"
               className="w-full h-auto lg:h-[700px] object-cover rounded-[5px]"
             />
           </div>

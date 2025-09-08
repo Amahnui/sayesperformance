@@ -138,7 +138,7 @@ export default function WhatWeOfferSection({ dict }: WhatWeOfferSectionProps): J
                     alt={option.title}
                     width={816}
                     height={434}
-                    className="w-full h-auto rounded-[15px]"
+                    className="w-full h-auto max:h-[200px] rounded-[15px]"
                   />
                 </div>
                 <p className="text-[14px] sm:text-[16px] md:text-[18px] font-medium text-[#3c3c3c] w-full mb-8 font-inter">
@@ -196,7 +196,7 @@ export default function WhatWeOfferSection({ dict }: WhatWeOfferSectionProps): J
                   alt={currentOption.title}
                   width={816}
                   height={434}
-                  className="w-full h-auto rounded-[15px] transition-all duration-700 ease-in-out"
+                  className="w-full h-auto max-h-[650px] rounded-[15px] transition-all duration-700 ease-in-out"
                 />
               </div>
               <p

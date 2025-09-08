@@ -12,12 +12,6 @@ export default function HeroSection({ dict }: { dict: any }): JSX.Element {
   return (
     <section
       className="w-full relative min-h-screen"
-      style={{
-        backgroundImage: "url('/images/img_soccergameconcept_1.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
     >
       <video
         src="/new/Video.mp4"

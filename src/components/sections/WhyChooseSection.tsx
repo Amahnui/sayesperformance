@@ -11,10 +11,13 @@ export default function WhyChooseSection({ dict }: { dict: any }): JSX.Element {
           {/* Left Image */}
           <div className="relative w-full max-w-[700px]">
             <div className="absolute inset-0 rounded-[5px] hidden lg:block top-[12px]" />
-            <img
-              src="https://sayesperformance.se/assets/banner-JN9Rbn98.gif"
-              alt="Sayes Performance Training"
-              className="w-full h-auto lg:h-[700px] object-cover rounded-[5px]"
+            <video
+              src="/new/performance.mp4"
+              autoPlay
+              loop
+              muted // Required for autoplay in most browsers
+              playsInline
+              className="absolute top-0 left-0 w-[100%] h-auto lg:h-[700px] object-cover rounded-[5px]"
             />
           </div>
 

@@ -26,7 +26,7 @@ export const packages = [
         'Professional coaching',
         'Motivational environment',
       ],
-      image: '/new/offer3.jpg',
+      image: '/new/offer6.jpg',
     },
     {
       id: 3,
